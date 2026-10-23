@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Civil Services Examination - Question Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #f5f4ef;
+      --paper-bg: #ffffff;
+      --text-main: #111111;
+      --text-muted: #555555;
+      --border-dark: #1f1f1f;
+      --border-light: #dcdbd5;
+      --seal-red: #8b0000;
+      --accent-navy: #1a2a3a;
+      --timer-bg: #1c232b;
+      --timer-text: #ffffff;
+      --timer-accent: #f59e0b;
+      --font-serif: 'Merriweather', 'Georgia', serif;
+      --font-display: 'Cinzel', 'Playfair Display', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-serif);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 90px;
+    }
+
+    /* ---------------- HEADER BAR (STICKY NAV) ---------------- */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-light);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      padding: 12px 24px;
+    }
+
+    .nav-container {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
+
+    .nav-brand-badge {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--seal-red);
+      border-radius: 50%;
+    }
+
+    .controls-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fafaf8;
+      border: 1px solid #d0cfca;
+      border-radius: 6px;
+      padding: 4px 8px;
+    }
+
+    .filter-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    select.select-filter {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 4px 6px;
+      cursor: pointer;
+    }
+
+    .btn-action {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: 1px solid #d0cfca;
+      background: #ffffff;
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: #ecebe6;
+      border-color: #b0afa9;
+    }
+
+    .btn-timer-toggle {
+      background: var(--accent-navy);
+      color: #ffffff;
+      border-color: var(--accent-navy);
+    }
+
+    .btn-timer-toggle:hover {
+      background: #253b52;
+    }
+
+    /* ---------------- QUESTION PAPER CONTAINER ---------------- */
+    .paper-wrapper {
+      max-width: 900px;
+      margin: 32px auto 0;
+      background: var(--paper-bg);
+      border: 1px solid var(--border-dark);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      padding: 48px 56px;
+      position: relative;
+    }
+
+    /* Double border effect for traditional exam paper */
+    .paper-inner-frame {
+      border: 1px solid #c5c4bd;
+      padding: 36px 42px;
+      background: #fffefb;
+    }
+
+    /* Standard UPSC Header */
+    .exam-header {
+      text-align: center;
+      border-bottom: 2px solid var(--border-dark);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+    }
+
+    .header-serial {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      color: #333333;
+    }
+
+    .exam-title-main {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .exam-sub-title {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #333333;
+      margin-bottom: 6px;
+    }
+
+    .exam-paper-name {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--seal-red);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .meta-time-marks {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #444;
+      padding-top: 10px;
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    /* Instructions Box */
+    .instructions-box {
+      border: 1px solid #666;
+      background: #faf9f5;
+      padding: 16px 20px;
+      margin-bottom: 30px;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .instructions-heading {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .instructions-box ol {
+      padding-left: 20px;
+    }
+
+    .instructions-box li {
+      margin-bottom: 4px;
+    }
+
+    /* Section Headings */
+    .section-divider {
+      text-align: center;
+      margin: 36px 0 24px;
+      position: relative;
+    }
+
+    .section-divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--border-dark);
+      z-index: 1;
+    }
+
+    .section-title {
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      background: #fffefb;
+      padding: 4px 20px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid var(--border-dark);
+    }
+
+    /* Question Item Structure */
+    .question-block {
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px dashed #c0beaf;
+      page-break-inside: avoid;
+    }
+
+    .question-block:last-child {
+      border-bottom: none;
+      margin-bottom: 10px;
+    }
+
+    .q-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .q-number {
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 15px;
+      min-width: 38px;
+      padding-top: 1px;
+      color: #111111;
+    }
+
+    .q-body {
+      flex: 1;
+      font-size: 14.5px;
+      line-height: 1.65;
+      text-align: justify;
+    }
+
+    .sub-question-item {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .sub-q-label {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 13px;
+      min-width: 24px;
+      padding-top: 1px;
+      color: var(--seal-red);
+    }
+
+    .sub-q-text {
+      flex: 1;
+    }
+
+    /* Right column with marks and per-question practice action */
+    .q-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 140px;
+      gap: 6px;
+      padding-top: 2px;
+    }
+
+    .marks-badge {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      color: #222222;
+      background: #eeebe1;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid #d2cebf;
+      white-space: nowrap;
+    }
+
+    .btn-practice-q {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      background: transparent;
+      border: 1px solid #888888;
+      border-radius: 4px;
+      padding: 3px 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #222222;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-practice-q:hover {
+      background: var(--accent-navy);
+      color: #ffffff;
+      border-color: var(--accent-navy);
+    }
+
+    .btn-practice-q svg {
+      width: 11px;
+      height: 11px;
+      fill: currentColor;
+    }
+
+    /* Empty and Loading States */
+    .state-message {
+      text-align: center;
+      padding: 60px 20px;
+      font-family: var(--font-sans);
+      color: var(--text-muted);
+    }
+
+    .state-spinner {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border: 3px solid #dcdbd5;
+      border-top-color: var(--accent-navy);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ---------------- FLOATING PRACTICE STOPWATCH ---------------- */
+    .floating-stopwatch {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      background: var(--timer-bg);
+      color: var(--timer-text);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      padding: 16px 20px;
+      width: 320px;
+      border: 1px solid #334155;
+      font-family: var(--font-sans);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .floating-stopwatch.minimized {
+      transform: translateY(calc(100% + 40px));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .timer-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 8px;
+    }
+
+    .timer-context {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--timer-accent);
+      text-transform: uppercase;
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .timer-close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 16px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 4px;
+    }
+
+    .timer-close-btn:hover {
+      color: #ffffff;
+    }
+
+    .timer-display {
+      font-size: 34px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+      letter-spacing: 2px;
+      margin: 4px 0 10px;
+      color: #ffffff;
+    }
+
+    .timer-display.time-warning {
+      color: #ef4444;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .timer-controls-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .timer-btn {
+      flex: 1;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .timer-btn-primary {
+      background: var(--timer-accent);
+      color: #0f172a;
+    }
+
+    .timer-btn-primary:hover {
+      background: #d97706;
+    }
+
+    .timer-btn-secondary {
+      background: #334155;
+      color: #e2e8f0;
+    }
+
+    .timer-btn-secondary:hover {
+      background: #475569;
+    }
+
+    /* ---------------- PRINT MEDIA OPTIMIZATIONS ---------------- */
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+        padding-bottom: 0;
+      }
+
+      .top-nav,
+      .floating-stopwatch,
+      .btn-practice-q {
+        display: none !important;
+      }
+
+      .paper-wrapper {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .paper-inner-frame {
+        border: none;
+        padding: 0;
+        background: #ffffff;
+      }
+
+      .question-block {
+        page-break-inside: avoid;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .q-meta {
+        min-width: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY TOP CONTROLS -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span class="nav-brand-badge"></span>
+        <span>UPSC Archive Portal</span>
+      </div>
+
+      <div class="controls-wrapper">
+        <!-- Paper Filter -->
+        <div class="filter-group">
+          <span class="filter-label">Paper</span>
+          <select id="paperSelector" class="select-filter" aria-label="Select Examination Paper">
+            <option value="GS1">General Studies I (GS1.json)</option>
+            <option value="GS2">General Studies II (GS2.json)</option>
+            <option value="GS3">General Studies III (GS3.json)</option>
+            <option value="GS4">General Studies IV (GS4.json)</option>
+            <option value="Essay">Essay (Essay.json)</option>
+          </select>
+        </div>
+
+        <!-- Year Filter -->
+        <div class="filter-group">
+          <span class="filter-label">Year</span>
+          <select id="yearSelector" class="select-filter" aria-label="Select Examination Year">
+            <option value="">Loading Years...</option>
+          </select>
+        </div>
+
+        <!-- Action: Full Mock Timer -->
+        <button id="fullMockTimerBtn" class="btn-action btn-timer-toggle" title="Start 3-Hour Exam Timer">
+          ⏱ 3-Hour Timer
+        </button>
+
+        <!-- Action: Print Paper -->
+        <button id="printBtn" class="btn-action" title="Print or save as PDF">
+          🖨 Print Paper
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- QUESTION PAPER CANVAS -->
+  <main class="paper-wrapper">
+    <div class="paper-inner-frame" id="paperCanvas">
+      <div class="state-message">
+        <div class="state-spinner"></div>
+        <p>Initializing Question Paper Archive...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FLOATING ANSWER PRACTICE STOPWATCH -->
+  <aside id="stopwatchWidget" class="floating-stopwatch minimized" aria-live="polite">
+    <div class="timer-top-row">
+      <span id="timerContextLabel" class="timer-context">Question 1 Practice</span>
+      <button id="timerCloseBtn" class="timer-close-btn" title="Hide Timer">&times;</button>
+    </div>
+    <div id="timerDisplay" class="timer-display">00:00</div>
+    <div class="timer-controls-row">
+      <button id="timerToggleBtn" class="timer-btn timer-btn-primary">Start</button>
+      <button id="timerResetBtn" class="timer-btn timer-btn-secondary">Reset</button>
+    </div>
+  </aside>
+
+  <script>
+    /**
+     * UPSC Question Paper Portal
+     * Architecture: Single Page App (SPA) loading modular JSON data files.
+     */
+
+    // Configuration & Paper Metadata
+    const PAPER_META = {
+      "GS1": {
+        fileName: "GS1.json",
+        title: "GENERAL STUDIES (PAPER-I)",
+        subTitle: "Indian Heritage & Culture, History & Geography of the World & Society",
+        marks: 250,
+        time: "3 Hours"
+      },
+      "GS2": {
+        fileName: "GS2.json",
+        title: "GENERAL STUDIES (PAPER-II)",
+        subTitle: "Governance, Constitution, Polity, Social Justice & International Relations",
+        marks: 250,
+        time: "3 Hours"
+      },
+      "GS3": {
+        fileName: "GS3.json",
+        title: "GENERAL STUDIES (PAPER-III)",
+        subTitle: "Technology, Economic Development, Bio-diversity, Environment, Security & Disaster Management",
+        marks: 250,
+        time: "3 Hours"
+      },
+      "GS4": {
+        fileName: "GS4.json",
+        title: "GENERAL STUDIES (PAPER-IV)",
+        subTitle: "Ethics, Integrity and Aptitude",
+        marks: 250,
+        time: "3 Hours"
+      },
+      "Essay": {
+        fileName: "Essay.json",
+        title: "ESSAY",
+        subTitle: "Civil Services (Main) Examination",
+        marks: 250,
+        time: "3 Hours"
+      }
+    };
+
+    // State Store
+    let currentDataset = [];
+    let currentPaperKey = "GS1";
+    let currentSelectedYear = null;
+
+    // Timer Engine State
+    let timerInterval = null;
+    let timerRemainingSeconds = 0;
+    let timerInitialSeconds = 0;
+    let isTimerRunning = false;
+    let timerMode = "single"; // 'single' or 'full-paper'
+
+    // DOM Elements
+    const paperSelector = document.getElementById("paperSelector");
+    const yearSelector = document.getElementById("yearSelector");
+    const paperCanvas = document.getElementById("paperCanvas");
+    const fullMockTimerBtn = document.getElementById("fullMockTimerBtn");
+    const printBtn = document.getElementById("printBtn");
+
+    const stopwatchWidget = document.getElementById("stopwatchWidget");
+    const timerContextLabel = document.getElementById("timerContextLabel");
+    const timerDisplay = document.getElementById("timerDisplay");
+    const timerToggleBtn = document.getElementById("timerToggleBtn");
+    const timerResetBtn = document.getElementById("timerResetBtn");
+    const timerCloseBtn = document.getElementById("timerCloseBtn");
+
+    /* ==========================================================
+       DATA FETCHING & NORMALIZATION
+    ========================================================== */
+
+    async function loadPaperData(paperKey) {
+      currentPaperKey = paperKey;
+      const meta = PAPER_META[paperKey];
+      
+      showLoading(`Loading ${meta.title} (${meta.fileName})...`);
+
+      try {
+        const response = await fetch(meta.fileName, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: Failed to load file '${meta.fileName}'`);
+        }
+        const data = await response.json();
+        
+        if (!Array.isArray(data) || data.length === 0) {
+          showEmptyState(`The file '${meta.fileName}' contains no question records.`);
+          return;
+        }
+
+        currentDataset = data;
+        populateYearSelector(data);
+        renderCurrentPaper();
+      } catch (err) {
+        showErrorState(`Unable to load <strong>${meta.fileName}</strong>.<br><br>
+          Ensure <code>${meta.fileName}</code> is placed in the exact same directory on GitHub Pages as this <code>index.html</code>.<br>
+          <small style="color:#888;">Error details: ${err.message}</small>`);
+      }
+    }
+
+    function populateYearSelector(data) {
+      // Extract unique years and sort in descending order (e.g. 2024, 2023, 2022)
+      const rawYears = data
+        .map(item => item.year)
+        .filter(y => y !== null && y !== undefined && y !== "");
+      
+      const distinctYears = Array.from(new Set(rawYears)).sort((a, b) => Number(b) - Number(a));
+
+      yearSelector.innerHTML = "";
+
+      if (distinctYears.length === 0) {
+        const opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = "No Years Found";
+        yearSelector.appendChild(opt);
+        currentSelectedYear = null;
+        return;
+      }
+
+      distinctYears.forEach(year => {
+        const opt = document.createElement("option");
+        opt.value = year;
+        opt.textContent = year;
+        yearSelector.appendChild(opt);
+      });
+
+      // Default to most recent year
+      currentSelectedYear = distinctYears[0];
+      yearSelector.value = currentSelectedYear;
+    }
+
+    /* ==========================================================
+       PAPER RENDERING ENGINE
+    ========================================================== */
+
+    function renderCurrentPaper() {
+      if (!currentDataset || currentDataset.length === 0) return;
+
+      const selectedYear = yearSelector.value;
+      if (!selectedYear) {
+        showEmptyState("No year selected.");
+        return;
+      }
+
+      // Filter questions for the selected year
+      const filteredQuestions = currentDataset.filter(
+        item => String(item.year).trim() === String(selectedYear).trim()
+      );
+
+      if (filteredQuestions.length === 0) {
+        showEmptyState(`No questions found for Year ${selectedYear} in this paper.`);
+        return;
+      }
+
+      // Sort questions: if qno exists, sort numerically
+      filteredQuestions.sort((a, b) => {
+        const qA = parseInt(a.qno, 10) || 0;
+        const qB = parseInt(b.qno, 10) || 0;
+        return qA - qB;
+      });
+
+      const meta = PAPER_META[currentPaperKey];
+
+      // Build Question Paper DOM
+      let html = `
+        <div class="exam-header">
+          <div class="header-serial">
+            <span>SERIAL NO. : UPSC-${selectedYear}-${currentPaperKey}</span>
+            <span>DO NOT OPEN THIS TEST BOOKLET UNTIL YOU ARE TOLD TO DO SO</span>
+          </div>
+          <div class="exam-title-main">UNION PUBLIC SERVICE COMMISSION</div>
+          <div class="exam-sub-title">Civil Services (Main) Examination, ${selectedYear}</div>
+          <div class="exam-paper-name">${meta.title}</div>
+          <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: #444;">
+            ${meta.subTitle}
+          </div>
+          <div class="meta-time-marks">
+            <span>Time Allowed : ${meta.time}</span>
+            <span>Maximum Marks : ${meta.marks}</span>
+          </div>
+        </div>
+
+        <div class="instructions-box">
+          <div class="instructions-heading">QUESTION PAPER SPECIFIC INSTRUCTIONS</div>
+          <ol>
+            <li>Please read each of the following instructions carefully before attempting questions:</li>
+            <li>There are questions printed both in Hindi and English (English shown here).</li>
+            <li>Word limit in questions, wherever specified, should be adhered to.</li>
+            <li>Any page or portion of the page left blank in the Answer Booklet must be clearly struck off.</li>
+          </ol>
+        </div>
+      `;
+
+      // Partition into sections if 'sec' is present
+      const hasSections = filteredQuestions.some(q => q.sec && String(q.sec).trim() !== "");
+
+      if (hasSections) {
+        // Group by section maintaining order of appearance
+        const sectionsMap = new Map();
+        filteredQuestions.forEach(q => {
+          const secKey = q.sec ? String(q.sec).trim().toUpperCase() : "GENERAL";
+          if (!sectionsMap.has(secKey)) {
+            sectionsMap.set(secKey, []);
+          }
+          sectionsMap.get(secKey).push(q);
+        });
+
+        sectionsMap.forEach((questions, secName) => {
+          if (secName !== "GENERAL" || sectionsMap.size > 1) {
+            html += `
+              <div class="section-divider">
+                <span class="section-title">SECTION '${secName}'</span>
+              </div>
+            `;
+          }
+
+          questions.forEach(q => {
+            html += renderQuestionBlock(q);
+          });
+        });
+      } else {
+        // Flat list without sections
+        filteredQuestions.forEach(q => {
+          html += renderQuestionBlock(q);
+        });
+      }
+
+      paperCanvas.innerHTML = html;
+      attachQuestionActionListeners();
+    }
+
+    function renderQuestionBlock(q) {
+      const qno = q.qno !== null && q.qno !== undefined ? q.qno : "•";
+      const metaText = q.marks_words_time ? String(q.marks_words_time).trim() : "";
+      
+      // Extract target time in minutes if available (e.g., '7min', '11m', '15 min')
+      const targetMinutes = extractTargetMinutes(metaText);
+
+      // Render Question Body (Handles array of subquestions or single text)
+      let bodyHtml = "";
+      if (Array.isArray(q.question)) {
+        bodyHtml = q.question.map(subQ => {
+          const text = String(subQ).trim();
+          // Check if string starts with bullet/letter like 'a.', 'b.', '(a)', '(i)'
+          const labelMatch = text.match(/^(\(?[a-zA-Z0-9]+\)?[.:])\s*(.*)$/);
+          if (labelMatch) {
+            return `
+              <div class="sub-question-item">
+                <span class="sub-q-label">${escapeHtml(labelMatch[1])}</span>
+                <span class="sub-q-text">${escapeHtml(labelMatch[2])}</span>
+              </div>
+            `;
+          } else {
+            return `
+              <div class="sub-question-item">
+                <span class="sub-q-label">•</span>
+                <span class="sub-q-text">${escapeHtml(text)}</span>
+              </div>
+            `;
+          }
+        }).join("");
+      } else {
+        bodyHtml = escapeHtml(q.question || "No question text provided.");
+      }
+
+      return `
+        <article class="question-block" id="q-block-${escapeHtml(String(qno))}">
+          <div class="q-row">
+            <div class="q-number">Q.${qno}</div>
+            <div class="q-body">${bodyHtml}</div>
+            <div class="q-meta">
+              ${metaText ? `<span class="marks-badge">${escapeHtml(metaText)}</span>` : ""}
+              ${targetMinutes ? `
+                <button class="btn-practice-q" data-qno="${escapeHtml(String(qno))}" data-minutes="${targetMinutes}">
+                  <svg viewBox="0 0 24 24"><path d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8zm0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2zm1 5h-2v6h6v-2h-4z"/></svg>
+                  <span>Practice (${targetMinutes}m)</span>
+                </button>
+              ` : `
+                <button class="btn-practice-q" data-qno="${escapeHtml(String(qno))}" data-minutes="10">
+                  <svg viewBox="0 0 24 24"><path d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8zm0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2zm1 5h-2v6h6v-2h-4z"/></svg>
+                  <span>Practice</span>
+                </button>
+              `}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    /* Helper: parse minutes from strings like "10M / 150W / 7min" or "15M / 11m" */
+    function extractTargetMinutes(str) {
+      if (!str) return null;
+      const match = str.match(/(\d+)\s*(?:min|mins|m)/i);
+      return match ? parseInt(match[1], 10) : null;
+    }
+
+    function escapeHtml(string) {
+      if (!string) return "";
+      return String(string)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function showLoading(msg) {
+      paperCanvas.innerHTML = `
+        <div class="state-message">
+          <div class="state-spinner"></div>
+          <p>${escapeHtml(msg)}</p>
+        </div>
+      `;
+    }
+
+    function showEmptyState(msg) {
+      paperCanvas.innerHTML = `
+        <div class="state-message">
+          <p style="font-size: 15px; margin-bottom: 8px;">📂</p>
+          <p>${escapeHtml(msg)}</p>
+        </div>
+      `;
+    }
+
+    function showErrorState(htmlMsg) {
+      paperCanvas.innerHTML = `
+        <div class="state-message" style="color: #991b1b; text-align: left; max-width: 600px; margin: 0 auto;">
+          <h4 style="font-family: var(--font-sans); margin-bottom: 8px; font-weight: 700;">File Loading Error</h4>
+          <p style="font-family: var(--font-sans); font-size: 13.5px; line-height: 1.6;">${htmlMsg}</p>
+        </div>
+      `;
+    }
+
+    /* ==========================================================
+       PRACTICE TIMER & STOPWATCH ENGINE
+    ========================================================== */
+
+    function initTimer(minutes, labelText) {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      timerInitialSeconds = minutes * 60;
+      timerRemainingSeconds = timerInitialSeconds;
+      
+      timerContextLabel.textContent = labelText;
+      updateTimerDisplay();
+      
+      timerToggleBtn.textContent = "Start";
+      timerToggleBtn.classList.add("timer-btn-primary");
+      
+      stopwatchWidget.classList.remove("minimized");
+      timerDisplay.classList.remove("time-warning");
+    }
+
+    function toggleTimer() {
+      if (isTimerRunning) {
+        // Pause
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        timerToggleBtn.textContent = "Resume";
+      } else {
+        // Start / Resume
+        if (timerRemainingSeconds <= 0) {
+          timerRemainingSeconds = timerInitialSeconds;
+        }
+        isTimerRunning = true;
+        timerToggleBtn.textContent = "Pause";
+        
+        timerInterval = setInterval(() => {
+          if (timerRemainingSeconds > 0) {
+            timerRemainingSeconds--;
+            updateTimerDisplay();
+            
+            // Highlight warning when under 60 seconds
+            if (timerRemainingSeconds <= 60 && timerRemainingSeconds > 0) {
+              timerDisplay.classList.add("time-warning");
+            }
+          } else {
+            // Time up!
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            timerToggleBtn.textContent = "Finished";
+            timerDisplay.textContent = "00:00";
+            alert(`⏰ Time is up for ${timerContextLabel.textContent}!`);
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      timerRemainingSeconds = timerInitialSeconds;
+      timerToggleBtn.textContent = "Start";
+      timerDisplay.classList.remove("time-warning");
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      const hours = Math.floor(timerRemainingSeconds / 3600);
+      const minutes = Math.floor((timerRemainingSeconds % 3600) / 60);
+      const seconds = timerRemainingSeconds % 60;
+
+      const pad = (n) => String(n).padStart(2, "0");
+
+      if (hours > 0) {
+        timerDisplay.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+      } else {
+        timerDisplay.textContent = `${pad(minutes)}:${pad(seconds)}`;
+      }
+    }
+
+    function attachQuestionActionListeners() {
+      const practiceButtons = document.querySelectorAll(".btn-practice-q");
+      practiceButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const qno = btn.getAttribute("data-qno");
+          const minutes = parseInt(btn.getAttribute("data-minutes"), 10) || 10;
+          initTimer(minutes, `Q.${qno} (${minutes} Min Practice)`);
+        });
+      });
+    }
+
+    /* ==========================================================
+       EVENT LISTENERS
+    ========================================================== */
+
+    // Switch Paper
+    paperSelector.addEventListener("change", (e) => {
+      loadPaperData(e.target.value);
+    });
+
+    // Switch Year
+    yearSelector.addEventListener("change", () => {
+      renderCurrentPaper();
+    });
+
+    // Full Mock 3-Hour Timer
+    fullMockTimerBtn.addEventListener("click", () => {
+      const meta = PAPER_META[currentPaperKey];
+      const year = yearSelector.value || "";
+      initTimer(180, `${meta.title} (${year}) - Full Mock (3h)`);
+      toggleTimer();
+    });
+
+    // Stopwatch Controls
+    timerToggleBtn.addEventListener("click", toggleTimer);
+    timerResetBtn.addEventListener("click", resetTimer);
+    timerCloseBtn.addEventListener("click", () => {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      stopwatchWidget.classList.add("minimized");
+    });
+
+    // Print
+    printBtn.addEventListener("click", () => {
+      window.print();
+    });
+
+    // Startup Execution
+    window.addEventListener("DOMContentLoaded", () => {
+      loadPaperData(paperSelector.value);
+    });
+  </script>
+</body>
+</html>

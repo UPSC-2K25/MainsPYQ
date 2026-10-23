@@ -865,10 +865,32 @@
       `;
     }
 
-    function extractTargetMinutes(str) {
+        function extractTargetMinutes(str) {
       if (!str) return null;
-      const match = str.match(/(\d+)\s*(?:min|mins|m)/i);
-      return match ? parseInt(match[1], 10) : null;
+      const text = String(str).trim();
+
+      // 1. Look specifically for 'min', 'mins', 'minute', or 'minutes'
+      const minMatch = text.match(/(\d+)\s*(?:min(?:ute)?s?)\b/i);
+      if (minMatch) {
+        return parseInt(minMatch[1], 10);
+      }
+
+      // 2. Look for trailing minute shorthand after a slash, e.g. "/ 7m" or "/ 11 m"
+      const slashMatch = text.match(/\/\s*(\d+)\s*m\b/i);
+      if (slashMatch) {
+        return parseInt(slashMatch[1], 10);
+      }
+
+      // 3. Fallback based on standard UPSC marks if only marks are written (e.g., '10M' -> 7m, '15M' -> 11m, '20M' -> 15m)
+      const marksMatch = text.match(/(\d+)\s*M\b/);
+      if (marksMatch) {
+        const marks = parseInt(marksMatch[1], 10);
+        if (marks === 10) return 7;
+        if (marks === 15) return 11;
+        if (marks === 20) return 15;
+      }
+
+      return null;
     }
 
     function escapeHtml(string) {
@@ -1022,3 +1044,5 @@
   </script>
 </body>
 </html>
+index.html
+Displaying index.html.

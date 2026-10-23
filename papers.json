@@ -1,0 +1,65 @@
+[
+  {
+    "id": "GS1",
+    "fileName": "GS1.json",
+    "label": "General Studies I",
+    "title": "GENERAL STUDIES (PAPER-I)",
+    "subTitle": "Indian Heritage & Culture, History & Geography of the World & Society",
+    "marks": 250,
+    "time": "3 Hours"
+  },
+  {
+    "id": "GS2",
+    "fileName": "GS2.json",
+    "label": "General Studies II",
+    "title": "GENERAL STUDIES (PAPER-II)",
+    "subTitle": "Governance, Constitution, Polity, Social Justice & International Relations",
+    "marks": 250,
+    "time": "3 Hours"
+  },
+  {
+    "id": "GS3",
+    "fileName": "GS3.json",
+    "label": "General Studies III",
+    "title": "GENERAL STUDIES (PAPER-III)",
+    "subTitle": "Technology, Economic Development, Bio-diversity, Environment, Security & Disaster Management",
+    "marks": 250,
+    "time": "3 Hours"
+  },
+  {
+    "id": "GS4",
+    "fileName": "GS4.json",
+    "label": "General Studies IV",
+    "title": "GENERAL STUDIES (PAPER-IV)",
+    "subTitle": "Ethics, Integrity and Aptitude",
+    "marks": 250,
+    "time": "3 Hours"
+  },
+  {
+    "id": "Essay",
+    "fileName": "Essay.json",
+    "label": "Essay",
+    "title": "ESSAY",
+    "subTitle": "Civil Services (Main) Examination",
+    "marks": 250,
+    "time": "3 Hours"
+  },
+  {
+    "id": "Geography1",
+    "fileName": "Geography1.json",
+    "label": "Geography Optional - Paper I",
+    "title": "GEOGRAPHY (PAPER-I)",
+    "subTitle": "Principles of Physical & Human Geography",
+    "marks": 250,
+    "time": "3 Hours"
+  },
+  {
+    "id": "Geography2",
+    "fileName": "Geography2.json",
+    "label": "Geography Optional - Paper II",
+    "title": "GEOGRAPHY (PAPER-II)",
+    "subTitle": "Geography of India",
+    "marks": 250,
+    "time": "3 Hours"
+  }
+]

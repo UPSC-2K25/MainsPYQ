@@ -25,11 +25,7 @@
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg-page);
@@ -118,6 +114,7 @@
       outline: none;
       padding: 4px 6px;
       cursor: pointer;
+      max-width: 240px;
     }
 
     .btn-action {
@@ -162,14 +159,12 @@
       position: relative;
     }
 
-    /* Double border effect for traditional exam paper */
     .paper-inner-frame {
       border: 1px solid #c5c4bd;
       padding: 36px 42px;
       background: #fffefb;
     }
 
-    /* Standard UPSC Header */
     .exam-header {
       text-align: center;
       border-bottom: 2px solid var(--border-dark);
@@ -229,7 +224,6 @@
       font-style: italic;
     }
 
-    /* Instructions Box */
     .instructions-box {
       border: 1px solid #666;
       background: #faf9f5;
@@ -249,15 +243,9 @@
       text-align: center;
     }
 
-    .instructions-box ol {
-      padding-left: 20px;
-    }
+    .instructions-box ol { padding-left: 20px; }
+    .instructions-box li { margin-bottom: 4px; }
 
-    .instructions-box li {
-      margin-bottom: 4px;
-    }
-
-    /* Section Headings */
     .section-divider {
       text-align: center;
       margin: 36px 0 24px;
@@ -289,7 +277,6 @@
       border: 1px solid var(--border-dark);
     }
 
-    /* Question Item Structure */
     .question-block {
       margin-bottom: 28px;
       padding-bottom: 20px;
@@ -340,11 +327,8 @@
       color: var(--seal-red);
     }
 
-    .sub-q-text {
-      flex: 1;
-    }
+    .sub-q-text { flex: 1; }
 
-    /* Right column with marks and per-question practice action */
     .q-meta {
       display: flex;
       flex-direction: column;
@@ -389,13 +373,8 @@
       border-color: var(--accent-navy);
     }
 
-    .btn-practice-q svg {
-      width: 11px;
-      height: 11px;
-      fill: currentColor;
-    }
+    .btn-practice-q svg { width: 11px; height: 11px; fill: currentColor; }
 
-    /* Empty and Loading States */
     .state-message {
       text-align: center;
       padding: 60px 20px;
@@ -414,9 +393,7 @@
       margin-bottom: 12px;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ---------------- FLOATING PRACTICE STOPWATCH ---------------- */
     .floating-stopwatch {
@@ -472,9 +449,7 @@
       padding: 2px 4px;
     }
 
-    .timer-close-btn:hover {
-      color: #ffffff;
-    }
+    .timer-close-btn:hover { color: #ffffff; }
 
     .timer-display {
       font-size: 34px;
@@ -513,60 +488,19 @@
       transition: background 0.2s ease;
     }
 
-    .timer-btn-primary {
-      background: var(--timer-accent);
-      color: #0f172a;
-    }
+    .timer-btn-primary { background: var(--timer-accent); color: #0f172a; }
+    .timer-btn-primary:hover { background: #d97706; }
+    .timer-btn-secondary { background: #334155; color: #e2e8f0; }
+    .timer-btn-secondary:hover { background: #475569; }
 
-    .timer-btn-primary:hover {
-      background: #d97706;
-    }
-
-    .timer-btn-secondary {
-      background: #334155;
-      color: #e2e8f0;
-    }
-
-    .timer-btn-secondary:hover {
-      background: #475569;
-    }
-
-    /* ---------------- PRINT MEDIA OPTIMIZATIONS ---------------- */
+    /* ---------------- PRINT MEDIA ---------------- */
     @media print {
-      body {
-        background: #ffffff;
-        color: #000000;
-        padding-bottom: 0;
-      }
-
-      .top-nav,
-      .floating-stopwatch,
-      .btn-practice-q {
-        display: none !important;
-      }
-
-      .paper-wrapper {
-        border: none;
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-        max-width: 100%;
-      }
-
-      .paper-inner-frame {
-        border: none;
-        padding: 0;
-        background: #ffffff;
-      }
-
-      .question-block {
-        page-break-inside: avoid;
-        border-bottom: 1px solid #ccc;
-      }
-
-      .q-meta {
-        min-width: 90px;
-      }
+      body { background: #ffffff; color: #000000; padding-bottom: 0; }
+      .top-nav, .floating-stopwatch, .btn-practice-q { display: none !important; }
+      .paper-wrapper { border: none; box-shadow: none; margin: 0; padding: 0; max-width: 100%; }
+      .paper-inner-frame { border: none; padding: 0; background: #ffffff; }
+      .question-block { page-break-inside: avoid; border-bottom: 1px solid #ccc; }
+      .q-meta { min-width: 90px; }
     }
   </style>
 </head>
@@ -581,19 +515,15 @@
       </div>
 
       <div class="controls-wrapper">
-        <!-- Paper Filter -->
+        <!-- Dynamic Paper Filter -->
         <div class="filter-group">
           <span class="filter-label">Paper</span>
           <select id="paperSelector" class="select-filter" aria-label="Select Examination Paper">
-            <option value="GS1">General Studies I (GS1.json)</option>
-            <option value="GS2">General Studies II (GS2.json)</option>
-            <option value="GS3">General Studies III (GS3.json)</option>
-            <option value="GS4">General Studies IV (GS4.json)</option>
-            <option value="Essay">Essay (Essay.json)</option>
+            <option value="">Detecting papers...</option>
           </select>
         </div>
 
-        <!-- Year Filter -->
+        <!-- Dynamic Year Filter -->
         <div class="filter-group">
           <span class="filter-label">Year</span>
           <select id="yearSelector" class="select-filter" aria-label="Select Examination Year">
@@ -627,7 +557,7 @@
   <!-- FLOATING ANSWER PRACTICE STOPWATCH -->
   <aside id="stopwatchWidget" class="floating-stopwatch minimized" aria-live="polite">
     <div class="timer-top-row">
-      <span id="timerContextLabel" class="timer-context">Question 1 Practice</span>
+      <span id="timerContextLabel" class="timer-context">Question Practice</span>
       <button id="timerCloseBtn" class="timer-close-btn" title="Hide Timer">&times;</button>
     </div>
     <div id="timerDisplay" class="timer-display">00:00</div>
@@ -639,60 +569,33 @@
 
   <script>
     /**
-     * UPSC Question Paper Portal
-     * Architecture: Single Page App (SPA) loading modular JSON data files.
+     * DYNAMIC MULTI-PAPER ARCHITECTURE:
+     * 1. Checks 'papers.json' (registry of available papers).
+     * 2. If 'papers.json' is not found, automatically falls back to standard presets + auto-discovery list.
      */
 
-    // Configuration & Paper Metadata
-    const PAPER_META = {
-      "GS1": {
-        fileName: "GS1.json",
-        title: "GENERAL STUDIES (PAPER-I)",
-        subTitle: "Indian Heritage & Culture, History & Geography of the World & Society",
-        marks: 250,
-        time: "3 Hours"
-      },
-      "GS2": {
-        fileName: "GS2.json",
-        title: "GENERAL STUDIES (PAPER-II)",
-        subTitle: "Governance, Constitution, Polity, Social Justice & International Relations",
-        marks: 250,
-        time: "3 Hours"
-      },
-      "GS3": {
-        fileName: "GS3.json",
-        title: "GENERAL STUDIES (PAPER-III)",
-        subTitle: "Technology, Economic Development, Bio-diversity, Environment, Security & Disaster Management",
-        marks: 250,
-        time: "3 Hours"
-      },
-      "GS4": {
-        fileName: "GS4.json",
-        title: "GENERAL STUDIES (PAPER-IV)",
-        subTitle: "Ethics, Integrity and Aptitude",
-        marks: 250,
-        time: "3 Hours"
-      },
-      "Essay": {
-        fileName: "Essay.json",
-        title: "ESSAY",
-        subTitle: "Civil Services (Main) Examination",
-        marks: 250,
-        time: "3 Hours"
-      }
-    };
+    const DEFAULT_CATALOG = [
+      { id: "Essay", fileName: "Essay.json", label: "Essay", title: "ESSAY", subTitle: "Civil Services (Main) Examination", marks: 250, time: "3 Hours" },
+      { id: "GS1", fileName: "GS1.json", label: "General Studies I", title: "GENERAL STUDIES (PAPER-I)", subTitle: "Indian Heritage & Culture, History & Geography of the World & Society", marks: 250, time: "3 Hours" },
+      { id: "GS2", fileName: "GS2.json", label: "General Studies II", title: "GENERAL STUDIES (PAPER-II)", subTitle: "Governance, Constitution, Polity, Social Justice & International Relations", marks: 250, time: "3 Hours" },
+      { id: "GS3", fileName: "GS3.json", label: "General Studies III", title: "GENERAL STUDIES (PAPER-III)", subTitle: "Technology, Economic Development, Bio-diversity, Environment, Security & Disaster Management", marks: 250, time: "3 Hours" },
+      { id: "GS4", fileName: "GS4.json", label: "General Studies IV", title: "GENERAL STUDIES (PAPER-IV)", subTitle: "Ethics, Integrity and Aptitude", marks: 250, time: "3 Hours" },
+      // Optional & Language slots readily discoverable:
+      { id: "Geography1", fileName: "Geography1.json", label: "Geography Optional - Paper I", title: "GEOGRAPHY (PAPER-I)", subTitle: "Principles of Geography", marks: 250, time: "3 Hours" },
+      { id: "Geography2", fileName: "Geography2.json", label: "Geography Optional - Paper II", title: "GEOGRAPHY (PAPER-II)", subTitle: "Geography of India", marks: 250, time: "3 Hours" },
+      { id: "English", fileName: "English.json", label: "Compulsory English", title: "ENGLISH (COMPULSORY)", subTitle: "Qualifying Paper A", marks: 300, time: "3 Hours" },
+      { id: "Telugu", fileName: "Telugu.json", label: "Indian Language - Telugu", title: "TELUGU (COMPULSORY / OPTIONAL)", subTitle: "Qualifying Paper / Optional Literature", marks: 300, time: "3 Hours" }
+    ];
 
-    // State Store
+    let papersRegistry = [];
     let currentDataset = [];
-    let currentPaperKey = "GS1";
-    let currentSelectedYear = null;
+    let currentPaper = null;
 
     // Timer Engine State
     let timerInterval = null;
     let timerRemainingSeconds = 0;
     let timerInitialSeconds = 0;
     let isTimerRunning = false;
-    let timerMode = "single"; // 'single' or 'full-paper'
 
     // DOM Elements
     const paperSelector = document.getElementById("paperSelector");
@@ -709,24 +612,72 @@
     const timerCloseBtn = document.getElementById("timerCloseBtn");
 
     /* ==========================================================
+       PAPER REGISTRY INITIALIZATION
+    ========================================================== */
+
+    async function initCatalog() {
+      showLoading("Checking available examination papers...");
+
+      // Try reading external papers.json manifest if created by the user
+      try {
+        const manifestRes = await fetch("papers.json", { cache: "no-store" });
+        if (manifestRes.ok) {
+          const customCatalog = await manifestRes.json();
+          if (Array.isArray(customCatalog) && customCatalog.length > 0) {
+            papersRegistry = customCatalog;
+            populatePaperSelector();
+            loadSelectedPaper(papersRegistry[0]);
+            return;
+          }
+        }
+      } catch (e) {
+        // papers.json not present, probe known default files
+      }
+
+      // Check which default JSON files actually exist in the repository
+      const verifiedList = [];
+      for (const item of DEFAULT_CATALOG) {
+        try {
+          const res = await fetch(item.fileName, { method: "HEAD", cache: "no-store" });
+          if (res.ok) {
+            verifiedList.push(item);
+          }
+        } catch (_) {}
+      }
+
+      // If HEAD requests are blocked or none detected, fall back to the standard 5
+      papersRegistry = verifiedList.length > 0 ? verifiedList : DEFAULT_CATALOG.slice(0, 5);
+      populatePaperSelector();
+      loadSelectedPaper(papersRegistry[0]);
+    }
+
+    function populatePaperSelector() {
+      paperSelector.innerHTML = "";
+      papersRegistry.forEach(p => {
+        const opt = document.createElement("option");
+        opt.value = p.id;
+        opt.textContent = `${p.label} (${p.fileName})`;
+        paperSelector.appendChild(opt);
+      });
+    }
+
+    /* ==========================================================
        DATA FETCHING & NORMALIZATION
     ========================================================== */
 
-    async function loadPaperData(paperKey) {
-      currentPaperKey = paperKey;
-      const meta = PAPER_META[paperKey];
-      
-      showLoading(`Loading ${meta.title} (${meta.fileName})...`);
+    async function loadSelectedPaper(paperObj) {
+      currentPaper = paperObj;
+      showLoading(`Loading ${paperObj.title || paperObj.label} (${paperObj.fileName})...`);
 
       try {
-        const response = await fetch(meta.fileName, { cache: "no-store" });
+        const response = await fetch(paperObj.fileName, { cache: "no-store" });
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: Failed to load file '${meta.fileName}'`);
+          throw new Error(`HTTP ${response.status}: Failed to load '${paperObj.fileName}'`);
         }
         const data = await response.json();
-        
+
         if (!Array.isArray(data) || data.length === 0) {
-          showEmptyState(`The file '${meta.fileName}' contains no question records.`);
+          showEmptyState(`The file '${paperObj.fileName}' contains no question records.`);
           return;
         }
 
@@ -734,14 +685,14 @@
         populateYearSelector(data);
         renderCurrentPaper();
       } catch (err) {
-        showErrorState(`Unable to load <strong>${meta.fileName}</strong>.<br><br>
-          Ensure <code>${meta.fileName}</code> is placed in the exact same directory on GitHub Pages as this <code>index.html</code>.<br>
+        showErrorState(`Unable to load <strong>${paperObj.fileName}</strong>.<br><br>
+          Ensure <code>${paperObj.fileName}</code> is placed in your GitHub repository root folder alongside <code>index.html</code>.<br>
           <small style="color:#888;">Error details: ${err.message}</small>`);
       }
     }
 
     function populateYearSelector(data) {
-      // Extract unique years and sort in descending order (e.g. 2024, 2023, 2022)
+      // Dynamic Year Detection: reads any new year added to the Excel/JSON
       const rawYears = data
         .map(item => item.year)
         .filter(y => y !== null && y !== undefined && y !== "");
@@ -755,7 +706,6 @@
         opt.value = "";
         opt.textContent = "No Years Found";
         yearSelector.appendChild(opt);
-        currentSelectedYear = null;
         return;
       }
 
@@ -766,9 +716,7 @@
         yearSelector.appendChild(opt);
       });
 
-      // Default to most recent year
-      currentSelectedYear = distinctYears[0];
-      yearSelector.value = currentSelectedYear;
+      yearSelector.value = distinctYears[0];
     }
 
     /* ==========================================================
@@ -794,31 +742,33 @@
         return;
       }
 
-      // Sort questions: if qno exists, sort numerically
+      // Sort numerically by question number
       filteredQuestions.sort((a, b) => {
         const qA = parseInt(a.qno, 10) || 0;
         const qB = parseInt(b.qno, 10) || 0;
         return qA - qB;
       });
 
-      const meta = PAPER_META[currentPaperKey];
+      const title = currentPaper.title || currentPaper.label.toUpperCase();
+      const subTitle = currentPaper.subTitle || "Civil Services Examination";
+      const marks = currentPaper.marks || 250;
+      const time = currentPaper.time || "3 Hours";
 
-      // Build Question Paper DOM
       let html = `
         <div class="exam-header">
           <div class="header-serial">
-            <span>SERIAL NO. : UPSC-${selectedYear}-${currentPaperKey}</span>
+            <span>SERIAL NO. : UPSC-${selectedYear}-${currentPaper.id}</span>
             <span>DO NOT OPEN THIS TEST BOOKLET UNTIL YOU ARE TOLD TO DO SO</span>
           </div>
           <div class="exam-title-main">UNION PUBLIC SERVICE COMMISSION</div>
           <div class="exam-sub-title">Civil Services (Main) Examination, ${selectedYear}</div>
-          <div class="exam-paper-name">${meta.title}</div>
+          <div class="exam-paper-name">${title}</div>
           <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: #444;">
-            ${meta.subTitle}
+            ${subTitle}
           </div>
           <div class="meta-time-marks">
-            <span>Time Allowed : ${meta.time}</span>
-            <span>Maximum Marks : ${meta.marks}</span>
+            <span>Time Allowed : ${time}</span>
+            <span>Maximum Marks : ${marks}</span>
           </div>
         </div>
 
@@ -826,24 +776,20 @@
           <div class="instructions-heading">QUESTION PAPER SPECIFIC INSTRUCTIONS</div>
           <ol>
             <li>Please read each of the following instructions carefully before attempting questions:</li>
-            <li>There are questions printed both in Hindi and English (English shown here).</li>
             <li>Word limit in questions, wherever specified, should be adhered to.</li>
             <li>Any page or portion of the page left blank in the Answer Booklet must be clearly struck off.</li>
           </ol>
         </div>
       `;
 
-      // Partition into sections if 'sec' is present
+      // Group into sections if present
       const hasSections = filteredQuestions.some(q => q.sec && String(q.sec).trim() !== "");
 
       if (hasSections) {
-        // Group by section maintaining order of appearance
         const sectionsMap = new Map();
         filteredQuestions.forEach(q => {
           const secKey = q.sec ? String(q.sec).trim().toUpperCase() : "GENERAL";
-          if (!sectionsMap.has(secKey)) {
-            sectionsMap.set(secKey, []);
-          }
+          if (!sectionsMap.has(secKey)) sectionsMap.set(secKey, []);
           sectionsMap.get(secKey).push(q);
         });
 
@@ -855,16 +801,10 @@
               </div>
             `;
           }
-
-          questions.forEach(q => {
-            html += renderQuestionBlock(q);
-          });
+          questions.forEach(q => { html += renderQuestionBlock(q); });
         });
       } else {
-        // Flat list without sections
-        filteredQuestions.forEach(q => {
-          html += renderQuestionBlock(q);
-        });
+        filteredQuestions.forEach(q => { html += renderQuestionBlock(q); });
       }
 
       paperCanvas.innerHTML = html;
@@ -874,16 +814,12 @@
     function renderQuestionBlock(q) {
       const qno = q.qno !== null && q.qno !== undefined ? q.qno : "•";
       const metaText = q.marks_words_time ? String(q.marks_words_time).trim() : "";
-      
-      // Extract target time in minutes if available (e.g., '7min', '11m', '15 min')
       const targetMinutes = extractTargetMinutes(metaText);
 
-      // Render Question Body (Handles array of subquestions or single text)
       let bodyHtml = "";
       if (Array.isArray(q.question)) {
         bodyHtml = q.question.map(subQ => {
           const text = String(subQ).trim();
-          // Check if string starts with bullet/letter like 'a.', 'b.', '(a)', '(i)'
           const labelMatch = text.match(/^(\(?[a-zA-Z0-9]+\)?[.:])\s*(.*)$/);
           if (labelMatch) {
             return `
@@ -929,7 +865,6 @@
       `;
     }
 
-    /* Helper: parse minutes from strings like "10M / 150W / 7min" or "15M / 11m" */
     function extractTargetMinutes(str) {
       if (!str) return null;
       const match = str.match(/(\d+)\s*(?:min|mins|m)/i);
@@ -974,7 +909,7 @@
     }
 
     /* ==========================================================
-       PRACTICE TIMER & STOPWATCH ENGINE
+       STOPWATCH ENGINE
     ========================================================== */
 
     function initTimer(minutes, labelText) {
@@ -995,15 +930,11 @@
 
     function toggleTimer() {
       if (isTimerRunning) {
-        // Pause
         clearInterval(timerInterval);
         isTimerRunning = false;
         timerToggleBtn.textContent = "Resume";
       } else {
-        // Start / Resume
-        if (timerRemainingSeconds <= 0) {
-          timerRemainingSeconds = timerInitialSeconds;
-        }
+        if (timerRemainingSeconds <= 0) timerRemainingSeconds = timerInitialSeconds;
         isTimerRunning = true;
         timerToggleBtn.textContent = "Pause";
         
@@ -1011,13 +942,10 @@
           if (timerRemainingSeconds > 0) {
             timerRemainingSeconds--;
             updateTimerDisplay();
-            
-            // Highlight warning when under 60 seconds
             if (timerRemainingSeconds <= 60 && timerRemainingSeconds > 0) {
               timerDisplay.classList.add("time-warning");
             }
           } else {
-            // Time up!
             clearInterval(timerInterval);
             isTimerRunning = false;
             timerToggleBtn.textContent = "Finished";
@@ -1041,7 +969,6 @@
       const hours = Math.floor(timerRemainingSeconds / 3600);
       const minutes = Math.floor((timerRemainingSeconds % 3600) / 60);
       const seconds = timerRemainingSeconds % 60;
-
       const pad = (n) => String(n).padStart(2, "0");
 
       if (hours > 0) {
@@ -1052,8 +979,7 @@
     }
 
     function attachQuestionActionListeners() {
-      const practiceButtons = document.querySelectorAll(".btn-practice-q");
-      practiceButtons.forEach(btn => {
+      document.querySelectorAll(".btn-practice-q").forEach(btn => {
         btn.addEventListener("click", () => {
           const qno = btn.getAttribute("data-qno");
           const minutes = parseInt(btn.getAttribute("data-minutes"), 10) || 10;
@@ -1066,25 +992,22 @@
        EVENT LISTENERS
     ========================================================== */
 
-    // Switch Paper
     paperSelector.addEventListener("change", (e) => {
-      loadPaperData(e.target.value);
+      const selected = papersRegistry.find(p => p.id === e.target.value);
+      if (selected) loadSelectedPaper(selected);
     });
 
-    // Switch Year
     yearSelector.addEventListener("change", () => {
       renderCurrentPaper();
     });
 
-    // Full Mock 3-Hour Timer
     fullMockTimerBtn.addEventListener("click", () => {
-      const meta = PAPER_META[currentPaperKey];
+      const title = currentPaper ? (currentPaper.title || currentPaper.label) : "Exam";
       const year = yearSelector.value || "";
-      initTimer(180, `${meta.title} (${year}) - Full Mock (3h)`);
+      initTimer(180, `${title} (${year}) - Full Mock (3h)`);
       toggleTimer();
     });
 
-    // Stopwatch Controls
     timerToggleBtn.addEventListener("click", toggleTimer);
     timerResetBtn.addEventListener("click", resetTimer);
     timerCloseBtn.addEventListener("click", () => {
@@ -1093,15 +1016,9 @@
       stopwatchWidget.classList.add("minimized");
     });
 
-    // Print
-    printBtn.addEventListener("click", () => {
-      window.print();
-    });
+    printBtn.addEventListener("click", () => window.print());
 
-    // Startup Execution
-    window.addEventListener("DOMContentLoaded", () => {
-      loadPaperData(paperSelector.value);
-    });
+    window.addEventListener("DOMContentLoaded", initCatalog);
   </script>
 </body>
 </html>
